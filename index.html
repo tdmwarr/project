@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Pengumuman Digital Sekolah</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <h1>Papan Pengumuman Digital</h1>
+                <div class="auth-container" id="authContainer">
+                    <button onclick="showLoginForm()" id="loginBtn" class="auth-btn">Login</button>
+                    <div id="userInfo" style="display: none;">
+                        <span id="userName"></span>
+                        <button onclick="logout()" class="auth-btn">Logout</button>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-container">
+                <label for="kategori">Filter Kategori:</label>
+                <select id="kategori" onchange="filterPengumuman()">
+                    <option value="semua">Semua Kategori</option>
+                    <option value="Akademik/Pelajaran">Akademik/Pelajaran</option>
+                    <option value="Kesiswaan/Acara">Kesiswaan/Acara</option>
+                    <option value="Administrasi/Umum">Administrasi/Umum</option>
+                    <option value="Prestasi/Berita Baik">Prestasi/Berita Baik</option>
+                </select>
+                <button onclick="exportToCSV()" class="export-btn">Ekspor ke CSV</button>
+                <button onclick="showAddForm()" id="addButton" class="add-btn" style="display: none;">Tambah Pengumuman</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="pengumuman-container" class="pengumuman-grid">
+            <!-- Pengumuman akan di-render di sini oleh JavaScript -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Papan Pengumuman Digital Sekolah</p>
+        </div>
+    </footer>
+
+    <!-- Modal Form untuk Login -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Form untuk Tambah/Edit Pengumuman -->
+    <div id="pengumumanModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Tambah Pengumuman Baru</h2>
+            <form id="pengumumanForm" onsubmit="savePengumuman(event)">
+                <input type="hidden" id="editIndex" value="-1">
+                <div class="form-group">
+                    <label for="judul">Judul:</label>
+                    <input type="text" id="judul" required>
+                </div>
+                <div class="form-group">
+                    <label for="deskripsi">Deskripsi:</label>
+                    <textarea id="deskripsi" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal">Tanggal:</label>
+                    <input type="date" id="tanggal" required>
+                </div>
+                <div class="form-group">
+                    <label for="kontak">Kontak:</label>
+                    <input type="text" id="kontak" required>
+                </div>
+                <div class="form-group">
+                    <label for="kategoriInput">Kategori:</label>
+                    <select id="kategoriInput" required>
+                        <option value="Akademik/Pelajaran">Akademik/Pelajaran</option>
+                        <option value="Kesiswaan/Acara">Kesiswaan/Acara</option>
+                        <option value="Administrasi/Umum">Administrasi/Umum</option>
+                        <option value="Prestasi/Berita Baik">Prestasi/Berita Baik</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">Simpan</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
